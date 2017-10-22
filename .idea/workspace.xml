@@ -8,11 +8,8 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Compilateur/Token.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Compilateur/Type.class" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Compilateur/TypeOfId.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Compilateur/code" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/code" afterPath="$PROJECT_DIR$/src/code" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -376,7 +373,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508686699937</updated>
-      <workItem from="1508686701186" duration="5049000" />
+      <workItem from="1508686701186" duration="5055000" />
     </task>
     <task id="LOCAL-00001" summary="first Try">
       <created>1508690996437</created>
@@ -392,11 +389,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508691060772</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="first Try">
+      <created>1508697809069</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1508697809069</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5049000" />
+    <option name="totallyTimeSpent" value="5055000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
