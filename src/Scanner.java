@@ -4,24 +4,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scanner {
+class Scanner {
     private String text;
     private int position;
     private List<String> source;
-    private char currentChar;
     private StringBuilder currentToken;
     private int state;
     private int line;
     private int linePosition;
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
 
     public void reInitialize() {
         currentToken = new StringBuilder();
@@ -44,15 +36,15 @@ public class Scanner {
         }
     }
 
-    public boolean isLetter(char c) {
+    private boolean isLetter(char c) {
         return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
     }
 
-    public boolean isDigit(char c) {
+    private boolean isDigit(char c) {
         return (c <= '9' && c >= '0');
     }
 
-    public boolean isOperator(char c) {
+    private boolean isOperator(char c) {
         return (c == '+' || c == '-' || c == '*' || c == '/' ||
 
                 c == '=' || c == '<' || c == '>' || c == '\\' ||
@@ -180,10 +172,10 @@ public class Scanner {
                     state = 7;
                     return getNextToken();
                 }
-                if (c == '>') {
+                // if (c == '>') {
                     state = 8;
                     return getNextToken();
-                }
+
 
             case 5:
                 if (isDigit(c)) {

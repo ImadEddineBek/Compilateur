@@ -1,14 +1,10 @@
-public class Id {
-    private String name;
+class Id {
+    private final String name;
 
-    public Id(String name) {
+    Id(String name) {
         this.name = name;
     }
 
-
-    public String getName() {
-        return name;
-    }
 
     @Override
     public boolean equals(Object o) {
