@@ -221,7 +221,7 @@ public class Scanner {
                 if (!isLetter(c)) {
                     state = 0;
 
-                    return new Token(Type.integerLiteral, currentToken.toString());
+                    return new Token(Type.realLiteral, currentToken.toString());
                 }
                 else {
                     String s = source.get(line);
