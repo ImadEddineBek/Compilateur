@@ -35,6 +35,10 @@ public class Scanner {
                 c == '?');
     }
 
+    public Token getNextToken() {
+        return null;
+    }
+
     public ArrayList<Token> scan() {
         for (String line : source) {
             char[] chars = line.toCharArray();
