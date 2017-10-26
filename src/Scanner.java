@@ -23,6 +23,10 @@ public class Scanner {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    public void reInitialize() {
+        currentToken = new StringBuilder();
+    }
+
     public Scanner(String path) {
         try {
             StringBuilder stringBuilder = new StringBuilder();
@@ -34,6 +38,7 @@ public class Scanner {
             position = 0;
             state = 0;
             line = 0;
+            currentToken = new StringBuilder();
         } catch (IOException e) {
             source = new ArrayList<>();
         }
@@ -54,15 +59,18 @@ public class Scanner {
 
                 c == '&' || c == '@' || c == '%' || c == '^' ||
 
-                c == '?');
+                c == '?' || c == '(' || c == ')' || c == ':' ||
+                c == ',');
     }
 
     public Token getNextToken() {
+        if (position >= text.length()) return null;
         char c = text.charAt(position);
         switch (state) {
             case 0:
                 if (isaNotImportant(c)) {
                     state = 0;
+                    linePosition++;
                     position++;
                     if (c == '\n') {
                         line++;
@@ -72,23 +80,29 @@ public class Scanner {
                 }
                 if (isLetter(c)) {
                     state = 1;
-                    currentToken = new StringBuilder();
+
                     return getNextToken();
                 }
                 if (isDigit(c)) {
                     state = 3;
-                    currentToken = new StringBuilder();
                     return getNextToken();
                 }
                 if (isOperator(c)) {
                     state = 4;
-                    currentToken = new StringBuilder();
                     return getNextToken();
                 }
                 if (c == '"') {
                     state = 2;
                     position++;
-                    currentToken = new StringBuilder();
+                    linePosition++;
+
+                    return getNextToken();
+                }
+                if (c == '!') {
+                    String s = source.get(line);
+                    position += s.length() - linePosition + 1;
+                    linePosition = 0;
+                    line++;
                     return getNextToken();
                 }
             case 1:
@@ -96,28 +110,46 @@ public class Scanner {
                     state = 1;
                     currentToken.append(c);
                     position++;
+                    linePosition++;
                     return getNextToken();
-                } else if (isKeyWord(currentToken.toString())) return new Token(Type.mot_cle, currentToken.toString());
-                else return new Token(Type.id, currentToken.toString());
+                } else if (isKeyWord(currentToken.toString())) {
+                    state = 0;
+
+                    return new Token(Type.mot_cle, currentToken.toString());
+                } else {
+                    state = 0;
+
+                    return new Token(Type.id, currentToken.toString());
+                }
             case 2:
                 if (c != '"') {
                     currentToken.append(c);
                     position++;
+                    linePosition++;
                     state = 2;
                     return getNextToken();
                 }
+                state = 0;
+                position++;
+                linePosition++;
                 return new Token(Type.string_Literal, currentToken.toString());
             case 3:
                 if (isDigit(c)) {
                     currentToken.append(c);
                     position++;
+                    linePosition++;
                     return getNextToken();
                 } else if (c == '.') {
                     currentToken.append(c);
                     position++;
+                    linePosition++;
                     state = 5;
                     return getNextToken();
-                } else if (!isLetter(c)) return new Token(Type.integerLiteral, currentToken.toString());
+                } else if (!isLetter(c)) {
+                    state = 0;
+
+                    return new Token(Type.integerLiteral, currentToken.toString());
+                }
                 else {
                     String s = source.get(line);
                     char[] chars = s.toCharArray();
@@ -131,12 +163,19 @@ public class Scanner {
                         } else stringBuilder.append(chars[i]);
                     }
                     System.out.println(stringBuilder);
+
                     return null;
                 }
             case 4:
-                if (c != '<' && c != '>') return new Token(Type.symbol, c + "");
+                if (c != '<' && c != '>') {
+                    state = 0;
+                    position++;
+                    linePosition++;
+                    return new Token(Type.symbol, c + "");
+                }
                 currentToken.append(c);
                 position++;
+                linePosition++;
                 if (c == '<') {
                     state = 7;
                     return getNextToken();
@@ -149,6 +188,7 @@ public class Scanner {
             case 5:
                 if (isDigit(c)) {
                     position++;
+                    linePosition++;
                     currentToken.append(c);
                     state = 6;
                     return getNextToken();
@@ -165,17 +205,24 @@ public class Scanner {
                         } else stringBuilder.append(chars[i]);
                     }
                     System.out.println(stringBuilder);
+                    state = 0;
+
                     return null;
                 }
 
             case 6:
                 if (isDigit(c)) {
                     position++;
+                    linePosition++;
                     currentToken.append(c);
                     state = 6;
                     return getNextToken();
                 }
-                if (!isLetter(c)) return new Token(Type.integerLiteral, currentToken.toString());
+                if (!isLetter(c)) {
+                    state = 0;
+
+                    return new Token(Type.integerLiteral, currentToken.toString());
+                }
                 else {
                     String s = source.get(line);
                     char[] chars = s.toCharArray();
@@ -189,21 +236,32 @@ public class Scanner {
                         } else stringBuilder.append(chars[i]);
                     }
                     System.out.println(stringBuilder);
+
                     return null;
                 }
             case 7:
                 if (c == '=' || c == '>') {
                     position++;
+                    linePosition++;
                     currentToken.append(c);
+                    state = 0;
+
                     return new Token(Type.symbol, currentToken.toString());
                 }
+                state = 0;
+
                 return new Token(Type.symbol, currentToken.toString());
             case 8:
                 if (c == '=') {
                     position++;
+                    linePosition++;
                     currentToken.append(c);
+                    state = 0;
+
                     return new Token(Type.symbol, currentToken.toString());
                 }
+                state = 0;
+
                 return new Token(Type.symbol, currentToken.toString());
 
         }
