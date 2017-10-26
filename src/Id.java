@@ -1,19 +1,10 @@
 public class Id {
-    private TypeOfId type;
     private String name;
-
-    public Id(TypeOfId type, String name) {
-        this.type = type;
-        this.name = name;
-    }
 
     public Id(String name) {
         this.name = name;
     }
 
-    public TypeOfId getType() {
-        return type;
-    }
 
     public String getName() {
         return name;
