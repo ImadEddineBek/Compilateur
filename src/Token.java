@@ -1,6 +1,6 @@
 public class Token {
-    private Type type;
-    private String value;
+    public Type type;
+    public String value;
 
     public Token(Type type, String value) {
         this.type = type;

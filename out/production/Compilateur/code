@@ -1,7 +1,24 @@
 ! this is a comment
-let
-     function do_nothing1(a:int,b:string)=do_nothing2(a+1) ! this is another comment
-     function do_nothing2(d:int)=do_nothing1(d,"str")
-in
-     do_nothing1(06532.3a,"str2")
-end
+begin
+    let
+        const a : 5 ;
+        const b : 6;
+        var c ~ Integer;
+        var d ~ 5 + b
+    in
+    begin
+        if (a > b) then
+            begin
+            while (a = b) do
+                begin
+                    c = 3;
+                    c = c -b ;
+                    c = 12
+                end
+            end
+        else
+            begin
+            c = 5
+            end
+
+    end

@@ -1,7 +1,7 @@
 ! this is a comment
 begin
     let
-        const a : 5 ;
+        const a : 5.a ;
         const b : 6;
         var c ~ Integer;
         var d ~ 5 + b

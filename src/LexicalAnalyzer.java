@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-class Scanner {
+class LexicalAnalyzer {
     private String text;
     private int position;
     private List<String> source;
@@ -19,7 +19,7 @@ class Scanner {
         currentToken = new StringBuilder();
     }
 
-    public Scanner(String path) {
+    public LexicalAnalyzer(String path) {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             source = Files.readAllLines(Paths.get(path));
@@ -52,7 +52,8 @@ class Scanner {
                 c == '&' || c == '@' || c == '%' || c == '^' ||
 
                 c == '?' || c == '(' || c == ')' || c == ':' ||
-                c == ',');
+
+                c == ',' || c == '~' || c == ';');
     }
 
     public Token getNextToken() {
@@ -173,8 +174,8 @@ class Scanner {
                     return getNextToken();
                 }
                 // if (c == '>') {
-                    state = 8;
-                    return getNextToken();
+                state = 8;
+                return getNextToken();
 
 
             case 5:
